@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+   - name: create directory
+     file:
+      name: /tmp/kiran
+      state: directory
+   - name: copy files
+     copy:
+      src: /etc/passwd
+      dest: /tmp/kiran
+

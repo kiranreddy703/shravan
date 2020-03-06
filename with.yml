@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: true
+  tasks:
+   - name: install "{{ item }}"
+     apt:
+      name: "{{ item }}"
+      state: present
+     when: ansible_distribution== "Ubuntu"
+     with_items:
+      - git-core
+      - curl
+      - wget
+      - vim
+   - name: install "{{ item }}"
+     yum:
+      name: "{{ item }}"
+      state: present
+     when: ansible_distribution== "CentOS"
+     with_items:
+      - git-core
+      - curl
+      - wget
+      - vim
+
+

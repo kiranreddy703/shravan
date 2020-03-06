@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+   - name: create users
+     user:
+      name: kiran
+      password: kiran
+      home: /home/kiran
+      shell: /bin/bash
+   - name: capture user information
+     shell: grep kiran /etc/passwd> /home/kiran/file1
+   - name: fetch file to master
+     fetch:
+      src: /home/kiran/file1
+      dest: /tmp/kiran
+

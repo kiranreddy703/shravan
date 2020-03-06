@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: true
+  tasks:
+   - name: install apche2
+     apt:
+      name: apache2
+      state: present
+     when: ansible_distribution== 'Ubuntu'
+     notify:
+       - start apache2
+   - name: install httpd
+     yum:
+      name: httpd
+      state: present
+     when: ansible_distribution== 'CentOS'
+     notify:
+       - start httpd
+   - name: copy a file to server
+     copy:
+      src: /root/index.html
+      dest: /var/www/html
+  handlers: 
+   - name: start apache2
+     service:
+      name: apache2
+      state: restarted
+   - name: start httpd
+     service:
+      name: httpd 
+      state: restarted    

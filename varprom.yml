@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: true
+  vars_prompt:
+   - name: pack1
+     prompt: Enter pack1
+     private: no
+   - name: pack2
+     prompt: Enter pack2
+     private: no
+  tasks:
+   - name: install wget
+     apt:
+      name: "{{pack1}}"
+      state: present
+     when: ansible_distribution== "Ubuntu"
+   - name: install tree
+     yum:
+      name: "{{pack2}}"
+      state: present
+     when: ansible_distribution== "CentOS"

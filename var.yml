@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: true
+  vars:
+   - pack1: wget
+   - pack2: tree
+  tasks:
+   - name: install wget
+     apt:
+      name: "{{pack1}}"
+      state: present
+     when: ansible_distribution== "Ubuntu"
+   - name: install tree
+     yum:
+      name: "{{pack2}}"
+      state: present
+     when: ansible_distribution== "CentOS"
